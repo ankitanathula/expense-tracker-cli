@@ -37,6 +37,7 @@ cd expense-tracker-cli
 python -m venv venv
 source venv/bin/activate      # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
+```
 
 ---
 
@@ -51,7 +52,7 @@ python expense_tracker.py data/sample.csv --category
 
 # Export to CSV
 python expense_tracker.py data/*.csv --output summary.csv
-
+```
 ---
 
 ## 🎥 Demo
