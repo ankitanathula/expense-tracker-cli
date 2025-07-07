@@ -37,3 +37,22 @@ cd expense-tracker-cli
 python -m venv venv
 source venv/bin/activate      # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
+
+---
+
+## 🚀 Usage
+
+```bash
+# Show monthly summary
+python expense_tracker.py data/sample.csv
+
+# Include category breakdown
+python expense_tracker.py data/sample.csv --category
+
+# Export to CSV
+python expense_tracker.py data/*.csv --output summary.csv
+
+🎥 Demo
+
+📄 License
+MIT © Ankit Anathula
