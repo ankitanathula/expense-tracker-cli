@@ -53,6 +53,7 @@ python expense_tracker.py data/sample.csv --category
 python expense_tracker.py data/*.csv --output summary.csv
 
 🎥 Demo
+![Demo GIF](assets/expense-tracker-demo.gif)
 
 📄 License
 MIT © Ankit Anathula
