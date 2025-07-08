@@ -1,0 +1,5 @@
+# don’t track my virtual environment
+venv/
+# don’t track Python’s temporary files
+__pycache__/
+*.py[cod]
