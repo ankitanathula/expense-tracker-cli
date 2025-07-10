@@ -1,63 +1,117 @@
 # Expense Tracker CLI
 
-A command-line tool to import and analyze expense data from bank-statement CSV files, providing summarized reports by month and category.
+A lightweight command-line tool to load one or more CSV expense files and summarize your spending by month and (optionally) by category.
 
 ---
 
-## 🚩 Problem
+## 📦 Installation
 
-Manually sifting through multiple CSV exports of bank statements to understand monthly and category-based spending is time-consuming and error-prone.
-
-## 💡 Solution
-
-Provide a simple CLI that:
-- Imports one or more CSV files
-- Parses date, amount, (optional) category columns
-- Summarizes total and average spending per month
-- Breaks down spending by category
-- Exports the summary report as CSV or prints it to the console
-
----
-
-## 🎯 MVP Features
-
-1. **Import CSVs**: Accept one or more file paths as arguments.
-2. **Parse Data**: Read CSVs, extract date, amount, (optional) category columns.
-3. **Monthly Summary**: Compute total spending and average per month.
-4. **Category Breakdown**: If category data exists, group and sum by category.
-5. **Output**: Print tables to console and (optionally) export summary as a new CSV file.
-
----
-
-## ⚙️ Installation
+### 1. Clone the repository
 
 ```bash
 git clone https://github.com/ankitanathula/expense-tracker-cli.git
 cd expense-tracker-cli
+```
+
+### 2. Set up a virtual environment
+
+A virtual environment keeps project dependencies isolated from your system Python.
+
+```bash
+# Create a virtual environment named "venv"
 python -m venv venv
-source venv/bin/activate      # or venv\Scripts\activate on Windows
+
+# Activate it:
+
+# Windows PowerShell
+venv\Scripts\Activate
+
+# macOS/Linux
+source venv/bin/activate
+```
+
+Your prompt should now start with `(venv)` to show it’s active.
+
+### 3. Install dependencies with pip
+
+`pip` is Python’s package installer. It downloads and installs libraries listed in a requirements file.
+
+```bash
 pip install -r requirements.txt
+```
+
+`requirements.txt` should include:
+
+```
+pandas
+tabulate
 ```
 
 ---
 
 ## 🚀 Usage
 
+### Running directly with Python
+
 ```bash
-# Show monthly summary
-python expense_tracker.py data/sample.csv
+# Summarize monthly spending
+python -m expense_tracker data/jan.csv data/feb.csv
 
-# Include category breakdown
-python expense_tracker.py data/sample.csv --category
-
-# Export to CSV
-python expense_tracker.py data/*.csv --output summary.csv
+# Add category breakdown
+tpython -m expense_tracker data/jan.csv data/feb.csv --by-category
 ```
+
+### Installing as a standalone command
+
+After you’ve set up the virtual environment and installed in editable mode, you can call `expense-tracker` without `python -m`:
+
+```bash
+pip install -e .
+expense-tracker data/jan.csv data/feb.csv --by-category
+```
+
+This command is exactly the same tool but run as `expense-tracker` instead of `python -m expense_tracker`. You only need `--by-category` if you want the category totals.
+
+---
+
+## 🧰 Core Functions
+
+* **`load_data(file_paths)`**
+
+  * Reads one or more CSV files (must include columns `date`, `amount`, `category`) into a single pandas DataFrame.
+
+* **`summarize(df, by_category=False)`**
+
+  * Returns:
+
+    1. A pandas DataFrame (`monthly_summary`) indexed by month (`pd.Period('M')`) with columns:
+
+       * `sum`  : total spending per month
+       * `mean` : average spending per month
+    2. A pandas Series (`category_summary`) mapping each category to its total spending (only if `by_category=True`).
+
+* **`main()`**
+
+  * Parses command-line arguments, calls `load_data`, runs `summarize`, and prints results to the console.
+
 ---
 
 ## 🎥 Demo
 
 ![Demo GIF](assets/expense-tracker-demo.gif)
+
+---
+
+## 📂 Project Structure
+
+```
+expense-tracker-cli/
+├── expense_tracker.py    # Core code (load_data, summarize, CLI entry point)
+├── test_*.py             # Pytest files for unit and CLI tests
+├── requirements.txt      # Project dependencies (pandas)
+├── pyproject.toml        # Package metadata and entry-point scripts
+└── README.md             # This file
+```
 
 ---
 
