@@ -3,3 +3,7 @@ venv/
 # don’t track Python’s temporary files
 __pycache__/
 *.py[cod]
+
+#Add a rule to ignore all __pycache__ and egg-info
+__pycache__/
+*.egg-info/
