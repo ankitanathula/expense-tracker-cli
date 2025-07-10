@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "expense-tracker"
+version = "0.1.0"
+description = "A CLI for summarizing CSV expense data by month and category"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [
+  { name = "Ankit Anathula", email = "ankitanathula@gmail.com" }
+]
+dependencies = [
+  "pandas",
+  "tabulate"
+]
+
+[tool.setuptools]
+py-modules = ["expense_tracker"]
+
+[project.scripts]
+expense-tracker = "expense_tracker:main"
