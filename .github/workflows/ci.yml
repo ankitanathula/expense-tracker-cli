@@ -20,19 +20,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2) Set up Python (use any 3.x version)
+      # 2) Set up Python 3.x on the runner
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.x'
 
-      # 3) Install dependencies and your package
+      # 3) Create & activate a virtual environment, install deps
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip   # Upgrade pip
-          pip install -e .                     # Install project in editable mode
+          python -m venv venv                  # create venv
+          source venv/bin/activate             # activate venv
+          python -m pip install --upgrade pip  # upgrade pip
+          pip install -e .                     # install your package
+          pip install pytest                   # install pytest for tests
 
       # 4) Run pytest to validate the code
       - name: Run test suite
         run: |
-          pytest -q --disable-warnings --maxfail=1  # Execute tests
+          source venv/bin/activate             # ensure venv is active
+          pytest -q --disable-warnings --maxfail=1
