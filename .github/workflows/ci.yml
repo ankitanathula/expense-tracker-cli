@@ -1,7 +1,7 @@
 # name of the workflow
 name: CI
 
-# Trigger on pushes or pull requests to the main branch
+# Trigger on pushes and pull requests to the main branch
 on:
   push:
     branches:
@@ -11,32 +11,28 @@ on:
       - main
 
 jobs:
-  # Defines a job named "build"
   build:
-    # Run this job on the latest Ubuntu virtual environment
+    # Use the latest Ubuntu runner
     runs-on: ubuntu-latest
 
     steps:
-      # 1) Checkout your repository so the runner has your code
+      # 1) Checkout your repository code
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      # 2) Set up Python 3.9 on the runner
-      - name: Set up Python 3.9
+      # 2) Set up Python (use any 3.x version)
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.9'
+          python-version: '3.x'
 
-      # 3) Install project dependencies in a virtual environment
+      # 3) Install dependencies and your package
       - name: Install dependencies
         run: |
-          python -m venv venv         # Create a new virtual environment
-          source venv/bin/activate    # Activate the virtual environment
-          python -m pip install --upgrade pip
-          pip install -e .            # Install your package in editable mode
+          python -m pip install --upgrade pip   # Upgrade pip
+          pip install -e .                     # Install project in editable mode
 
-      # 4) Run the test suite with pytest
+      # 4) Run pytest to validate the code
       - name: Run test suite
         run: |
-          source venv/bin/activate    # Ensure the venv is active
           pytest -q --disable-warnings --maxfail=1  # Execute tests
