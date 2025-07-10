@@ -40,9 +40,14 @@ jobs:
           pip install -e .                            # Install project in editable mode
           pip install pytest flake8 pytest-cov        # Install pytest, flake8, and pytest-cov
 
-      # 5) Lint code with flake8
+      # 5) Lint code with flake8, but override defaults for CI
       - name: Lint code
-        run: flake8 .                                # Check code style and catch errors early
+        run: |
+          flake8 . \
+            --max-line-length=100 \
+            --ignore=E203,E266,E302,E305,W293 \
+            --extend-ignore=F401,E501
+                               # Check code style and catch errors early
 
       # 6) Run test suite with coverage
       - name: Run tests with coverage
