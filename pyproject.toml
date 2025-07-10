@@ -27,9 +27,11 @@ expense-tracker = "expense_tracker:main"
 # Allow up to 100 characters per line
 max-line-length = 100
 
-# Ignore blank-line rules and line-length in tests,
-# plus unused-import errors in test files
-extend-ignore = E203, E266, E302, E305, W293
+# Ignore specific error codes globally
+extend-ignore = ["E203", "E266", "E302", "E305", "W293"]
 
-per-file-ignores =
-    test_*.py: F401, E501
+# Per-file ignores for tests: skip unused-import and line-length errors
+per-file-ignores = [
+  "test_*.py:F401",
+  "test_*.py:E501"
+]
