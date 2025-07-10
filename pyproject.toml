@@ -22,3 +22,14 @@ py-modules = ["expense_tracker"]
 
 [project.scripts]
 expense-tracker = "expense_tracker:main"
+
+[tool.flake8]
+# Allow up to 100 characters per line
+max-line-length = 100
+
+# Ignore blank-line rules and line-length in tests,
+# plus unused-import errors in test files
+extend-ignore = E203, E266, E302, E305, W293
+
+per-file-ignores =
+    test_*.py: F401, E501
